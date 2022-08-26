@@ -25,16 +25,26 @@
           </div>
         </div>
         <div class="difficultiesBtn">
-            <button class="buttonDif">Очень легкий</button>
-            <button class="buttonDif">Легкий</button>
-            <button class="buttonDif midle">Средний</button>
-            <button class="buttonDif">Высокий</button>
-            <button class="buttonDif">Очень высокий</button>
+            <button id="veryEasy" class="buttonDif" onclick = "setButtonMode('link', 'veryEasy');">Очень легкий</button>
+            <button id="easy"  class="buttonDif" onclick = "setButtonMode('link', 'easy');">Легкий</button>
+            <button id="midle"  class="buttonDif midle" onclick = "setButtonMode('link', 'midle');">Средний</button>
+            <button id="hard" class="buttonDif" onclick = "setButtonMode('link', 'hard');">Высокий</button>
+            <button id="veryHard" class="buttonDif" onclick = "setButtonMode('link', 'veryHard');">Очень высокий</button>
+        </div>
+        <div class="makeDeck">
+          <button class="buttonDif">Замешать колоду</button>
+          <div class="nextCard">
+            <img src="./assets/mythicCardBackground.png" height="150" />
+          </div>
+          <div class="dropCard">
+            <img src="" height="250"/>
+          </div>
         </div>
       </div>
     </main>
     <footer></footer>
     <link rel="stylesheet" href="style.css" />
     <script type="module" src="index.js"></script>
+    <script src="skripts.js"></script>
   </body>
 </html>

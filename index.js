@@ -7,6 +7,9 @@ const cthulhuPic = document.querySelector('.cthulhu');
 const iogSothothPic = document.querySelector('.iogSothoth');
 const shubNiggurathPic = document.querySelector('.shubNiggurath');
 let ancientID;
+let brownCardsAll;
+let blueCardsAll;
+let greenCardsAll;
 
 azathothPic.addEventListener('click', azathoth);
 function azathoth() {
@@ -52,15 +55,35 @@ function active() {
 }
 
 function getDeck(colorCardsDeck, amount){
+    let randomCardIndex = [];
+    let finalCardIndex = [];
+    for(let n = 0; n < colorCardsDeck; n++){
+        randomCardIndex [n] = n;
+    }
+    for (let  i = 0; i < amount; i++){
+        finalCardIndex[i] = randomCardIndex.splice((Math.floor(Math.random() * (colorCardsDeck-i))), 1 );
+        console.log('Индекс рандомной карты №' + i + ' = ' + finalCardIndex[i]);
+    }
+    console.log('Массив без рандомных карт = ' + randomCardIndex);
+    return (finalCardIndex);
+}
 
+const showNextCard = document.querySelector('.nextCard');
+showNextCard.addEventListener('click', showDeck);
+function showDeck (){
+    console.log('Hello!');
 }
 
 const midDif = document.querySelector('.midle');
 midDif.addEventListener('click',flexMid);
 function flexMid(){
-    let blueCardsAll = AncientsData[ancientID].firstStage.blueCards + AncientsData[ancientID].secondStage.blueCards + AncientsData[ancientID].thirdStage.blueCards;
-    let brownCardsAll = AncientsData[ancientID].firstStage.brownCards + AncientsData[ancientID].secondStage.brownCards + AncientsData[ancientID].thirdStage.brownCards;
-    let greenCardsAll = AncientsData[ancientID].firstStage.greenCards + AncientsData[ancientID].secondStage.greenCards + AncientsData[ancientID].thirdStage.greenCards;
-    getDeck(BrownCards.length, 3); /*brownCardsAll = 3*/
+    blueCardsAll = AncientsData[ancientID].firstStage.blueCards + AncientsData[ancientID].secondStage.blueCards + AncientsData[ancientID].thirdStage.blueCards;
+    brownCardsAll = AncientsData[ancientID].firstStage.brownCards + AncientsData[ancientID].secondStage.brownCards + AncientsData[ancientID].thirdStage.brownCards;
+    greenCardsAll = AncientsData[ancientID].firstStage.greenCards + AncientsData[ancientID].secondStage.greenCards + AncientsData[ancientID].thirdStage.greenCards;
+    getDeck(BrownCards.length, brownCardsAll);
     console.log('Карты = ' + BrownCards[5].id + ' ' + BrownCards[5].difficulty);
 }
+
+
+
+
