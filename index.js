@@ -9,6 +9,16 @@ const azathothPic = document.querySelector('.azathoth');
 const cthulhuPic = document.querySelector('.cthulhu');
 const iogSothothPic = document.querySelector('.iogSothoth');
 const shubNiggurathPic = document.querySelector('.shubNiggurath');
+const difficultiesBtn = document.querySelector('.difficultiesBtn');
+const midDif = document.querySelector('.midle');
+const deckMix = document.querySelector('.deckMix');
+const nextCard = document.querySelector('.nextCard');
+const dropCard = document.querySelector('.dropCard');
+const stageBox1 = document.querySelectorAll('.stage1 .circle');
+const stageBox2 = document.querySelectorAll('.stage2 .circle');
+const stageBox3 = document.querySelectorAll('.stage3 .circle');
+const tracker = document.querySelector('.deckTracker');
+const deckTracker = document.querySelectorAll('.stage p');
 let ancientID;
 let brownCardsAll;
 let blueCardsAll;
@@ -21,6 +31,7 @@ function azathoth() {
     if (activeCard) {
         activeCard.classList.remove('activeCard');
     }
+    visibility()
     activeCard = azathothPic;
     ancientID = 0;
     active();
@@ -31,6 +42,7 @@ function cthulhu() {
     if (activeCard) {
         activeCard.classList.remove('activeCard');
     }
+    visibility()
     activeCard = cthulhuPic;
     ancientID = 1;
     active();
@@ -41,6 +53,7 @@ function iogSothoth() {
     if (activeCard) {
         activeCard.classList.remove('activeCard');
     }
+    visibility()
     activeCard = iogSothothPic;
     ancientID = 2;
     active();
@@ -50,10 +63,19 @@ function shubNiggurath() {
     if (activeCard) {
         activeCard.classList.remove('activeCard');
     }
+    visibility()
     activeCard = shubNiggurathPic;
     ancientID = 3;
     active();
 }
+
+function visibility(){
+    difficultiesBtn.classList.add('show');
+    tracker.classList.remove('show');
+    deckMix.classList.remove('show');
+    nextCard.classList.remove('show');
+    dropCard.classList.remove('show');
+} 
 
 function active() {
     activeCard.classList.add('activeCard');
@@ -76,6 +98,11 @@ function getDeck(colorCardsDeck, amount) {
 const mixDeck = document.querySelector('.deckMix')
 mixDeck.addEventListener('click', showDeck);
 function showDeck() {
+    tracker.classList.add('show');
+    deckTracker[0].style.color = 'white';
+    deckTracker[1].style.color = 'white';
+    deckTracker[2].style.color = 'white';
+    mythDeck = [[[], [], []], [[], [], []], [[], [], []]];
     activeStage = 0;
     let stage = '';
     let passingCardsGreen = getDeck(GreenCards.length, greenCardsAll);
@@ -108,7 +135,28 @@ function showDeck() {
             }
         }
     }
+    cardTracker();
+    nextCard.classList.add('show');
+    dropCard.classList.add('show');
+    curentCard.src = '';
+
     console.log('Ок');
+}
+
+function cardTracker(){
+    for (let i = 0; i < 3; i++){
+        for(let j = 0; j < 3; j++){
+            if(i==0){
+                stageBox1[j].textContent = mythDeck[i][j].length;
+            }else{
+            if(i==1){
+                stageBox2[j].textContent = mythDeck[i][j].length;
+            }else{
+            if(i==2){
+                stageBox3[j].textContent = mythDeck[i][j].length;
+            }}}
+        }
+    }
 }
 
 function randomCard() {
@@ -137,6 +185,7 @@ function getIageOfRandomCard(activeStage){
             }
         }
     }
+    cardTracker();
     return (imgSrc);
 }
 
@@ -149,22 +198,28 @@ function showCard() {
         curentCard.src = getIageOfRandomCard(activeStage);
         console.log('Актив стейдж = ' + activeStage);
     }else{activeStage = 1;
+        deckTracker[0].style.color = 'red';
     if (activeStage == 1 && (mythDeck[1][0].length != 0 || mythDeck[1][1].length != 0 || mythDeck[1][2].length != 0)){
         curentCard.src = getIageOfRandomCard(activeStage);
         console.log('Актив стейдж = ' + activeStage);
     }else{activeStage = 2;
+        deckTracker[1].style.color = 'red';
     if (activeStage == 2 && (mythDeck[2][0].length != 0 || mythDeck[2][1].length != 0 || mythDeck[2][2].length != 0)){
         curentCard.src = getIageOfRandomCard(activeStage);
         console.log('Актив стейдж = ' + activeStage);
     }else{curentCard.src = '';
-            activeStage == 0;}}}
+            activeStage == 0;
+            deckTracker[2].style.color = 'red';}}}
     /*else{if(activeStage == 1){stage = 'secondStage';}else{if(activeStage == 2){stage = 'thirdStage';}}}*/
 }
 
-
-const midDif = document.querySelector('.midle');
 midDif.addEventListener('click', flexMid);
 function flexMid() {
+    deckMix.classList.add('show');
+    nextCard.classList.remove('show');
+    dropCard.classList.remove('show');
+    activeStage = 0;
+    curentCard.src = '';
     blueCardsAll = AncientsData[ancientID].firstStage.blueCards + AncientsData[ancientID].secondStage.blueCards + AncientsData[ancientID].thirdStage.blueCards;
     brownCardsAll = AncientsData[ancientID].firstStage.brownCards + AncientsData[ancientID].secondStage.brownCards + AncientsData[ancientID].thirdStage.brownCards;
     greenCardsAll = AncientsData[ancientID].firstStage.greenCards + AncientsData[ancientID].secondStage.greenCards + AncientsData[ancientID].thirdStage.greenCards;
